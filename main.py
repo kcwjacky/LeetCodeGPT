@@ -1,15 +1,20 @@
+import os
 import openai
 import requests
 from googlesearch import search
+from dotenv import load_dotenv
 from bs4 import BeautifulSoup
 import gradio as gr
 
 
-OPENAI_KEY = ('sk-proj-h0z3KO9hl7hzplzFv3TOefN-VEaIQ0d2Dvsa6RxmdorEQzc'
-              '40JVRXSi-caveCYNr4zbV_8CggFT3BlbkFJr-ZjhPPHVn5qWak4BUSO'
-              '_K_NYDIGZEmyEeL63RrwbUXLHyqswqWIOOFxloMAneQuB-k435u38A')
-MODEL = 'gpt-4o-mini'
+load_dotenv()
+OPENAI_KEY = os.getenv('OPENAI_KEY')
+if not OPENAI_KEY:
+    raise ValueError("OpenAI API key not found. Please set it in the .env file.")
+print(OPENAI_KEY)
 
+
+MODEL = 'gpt-4o-mini'
 openai.api_key = OPENAI_KEY
 requirement = ('請用搜尋結果，整理出該 LeetCode 問題的 '
                '1. 問題敘述 2. 解題思路 3. 帶有中文註解的 Python code 4. 時間與空間複雜度'
